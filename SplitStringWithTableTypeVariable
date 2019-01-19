@@ -1,0 +1,18 @@
+	Declare @Certificates table (CertId numeric(18))
+	Declare @a numeric(18),@TrainerId numeric(18)
+		While(CHARINDEX('_SPACE_',@CertificateIDs)>0)
+		Begin
+			IF(CHARINDEX('_SPACE_',@CertificateIDs)<>0)
+			Begin
+			Set @a=CONVERT(numeric(18),SUBSTRING(@CertificateIDs,1,CHARINDEX('_SPACE_',@CertificateIDs)-1))
+
+			set @CertificateIDs=SUBSTRING(@CertificateIDs,CHARINDEX('_SPACE_',@CertificateIDs)+7,Len(@CertificateIDs))
+			End
+			Else
+			Begin
+			Set @a=CONVERT(numeric(18),@CertificateIDs)
+
+			Set @CertificateIDs=''
+			End
+			insert into @Certificates values (@a)
+		End
